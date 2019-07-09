@@ -17,8 +17,7 @@ components:
   memoryLimit: 512Mi
 -
   type: dockerimage
-  # this version is used in the plugin
-  image: golang:1.10.7-stretch
+  image: golang:1.12.7-stretch
   alias: go-cli
   command: ['sleep']
   args: ['infinity']
@@ -32,7 +31,7 @@ components:
       value: /tmp/.cache
     - name: PS1
       value: $(echo ${0})\\$
-  memoryLimit: 512Mi
+  memoryLimit: 1024Mi
   mountSources: true
 commands:
 -
@@ -63,3 +62,17 @@ commands:
     component: go-cli
     command: dep ensure
     workdir: ${CHE_PROJECTS_ROOT}/src/github.com/eclipse/che-plugin-broker
+-
+  name: install dependency management tool
+  actions:
+  - type: exec
+    component: go-cli
+    command: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+    workdir: ${CHE_PROJECTS_ROOT}
+-
+  name: install go linter
+  actions:
+  - type: exec
+    component: go-cli
+    command: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH | cut -d ":" -f1)/bin v1.17.1
+    workdir: ${CHE_PROJECTS_ROOT}
