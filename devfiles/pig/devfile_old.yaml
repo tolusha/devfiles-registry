@@ -11,8 +11,7 @@ components:
   -
     alias: apache-pig-plugin
     type: chePlugin
-    registryUrl: https://github.com/tolusha/plugins-registry/tree/master/plugins
-    id: tolusha/apache-pig-debug/0.0.1
+    reference: https://raw.githubusercontent.com/tolusha/plugins-registry/master/plugins/tolusha/apache-pig-debug/0.0.1/meta.yaml
   -
     id: eclipse/che-theia/next
     type: cheEditor
